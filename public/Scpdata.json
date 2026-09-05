@@ -1,0 +1,29 @@
+[
+ {
+  "id":"SCP-002",
+  "name":"The Living Room",
+  "class":"Euclid",
+  "image":"/Images/800px-SCP002.jpg",
+  "description":"SCP-002 resembles a tumorous fleshy growth containing a room-like interior.",
+  "containment":"SCP-002 must remain connected to a suitable power supply."
+ },
+
+ {
+  "id":"SCP-004",
+  "name":"The Rusted Door",
+  "class":"Euclid",
+  "image":"/Images/SCP004_door.jpg",
+  "description":"SCP-004 consists of an old wooden door and a set of rusted keys.",
+  "containment":"Only authorised personnel can handle the keys."
+ },
+
+ {
+  "id":"SCP-005",
+  "name":"The Skeleton Key",
+  "class":"Safe",
+  "image":"/Images/SCP-005.jpg",
+  "description":"SCP-005 is an unusual key that can open many locks.",
+  "containment":"Requires Level 4 approval."
+ }
+
+]

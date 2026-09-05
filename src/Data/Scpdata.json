@@ -1,0 +1,51 @@
+[
+  {
+    "id": "SCP-002",
+    "name": "The Living Room",
+    "class": "Euclid",
+    "image": "/Images/800px-SCP002.jpg",
+    "containment": "SCP-002 is to remain connected to a suitable power supply at all times. In case of electrical outage, emergency barriers must be activated and the surrounding area evacuated.",
+    "description": "SCP-002 resembles a tumorous fleshy growth containing an interior similar to a low-rent apartment. Furniture inside appears to be created from biological materials.",
+    "reference": "The object has been responsible for the disappearance of several personnel and continues to alter its interior."
+  },
+
+  {
+    "id": "SCP-003",
+    "name": "Biological Motherboard",
+    "class": "Euclid",
+    "image": "",
+    "containment": "SCP-003 must be maintained at a constant temperature above 35°C. Living organisms of high complexity must not come into contact with SCP-003.",
+    "description": "SCP-003 consists of two related components. SCP-003-1 resembles a biological motherboard made from chitin, hair and nails.",
+    "reference": "The object demonstrates unknown biological and technological properties."
+  },
+
+  {
+    "id": "SCP-004",
+    "name": "The Door and Twelve Keys",
+    "class": "Euclid",
+    "image": "/Images/SCP004_door.jpg",
+    "containment": "SCP-004 keys must only be handled by authorised personnel. Keys must not be removed without proper security approval.",
+    "description": "SCP-004 consists of an old wooden door and twelve rusted keys. Different keys create different spatial and temporal effects.",
+    "reference": "Testing revealed that SCP-004 creates unknown dimensional spaces."
+  },
+
+  {
+    "id": "SCP-005",
+    "name": "Skeleton Key",
+    "class": "Safe",
+    "image": "/Images/SCP-005.jpg",
+    "containment": "Approval from Level 4 personnel is required before removing SCP-005 from containment.",
+    "description": "SCP-005 resembles an ornate key with the ability to open almost any mechanical or digital lock.",
+    "reference": "Further experiments suggest SCP-005 may possess limited intelligence."
+  },
+
+  {
+    "id": "SCP-006",
+    "name": "Fountain of Youth",
+    "class": "Safe",
+    "image": "",
+    "containment": "Personnel interacting with SCP-006 must follow strict security procedures.",
+    "description": "SCP-006 is a small spring producing liquid with unusual healing properties.",
+    "reference": "The liquid increases cellular regeneration and improves immune system effectiveness."
+  }
+]
