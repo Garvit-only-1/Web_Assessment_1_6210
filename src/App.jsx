@@ -1,206 +1,107 @@
-import { useState } from "react";
-import data from "./Data/Scpdata.json";
-import SCPCard from "./Components/SCPCard";
+
+import { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import { supabase } from "./services/supabase";
+import { checkAdmin } from "./services/scpService";
+
+import Login from "./login";
+import SCPDatabase from "./Components/SCPDatabase";
+
 import "./App.css";
 
+function App() {
+  const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-function App(){
+  useEffect(() => {
+    let active = true;
 
+    async function loadSession() {
+      const { data, error } = await supabase.auth.getUser();
 
-const [search,setSearch] = useState("");
+      if (!active) return;
 
-const [filter,setFilter] = useState("All");
+      if (error || !data.user) {
+        setUser(null);
+        setIsAdmin(false);
+        setLoading(false);
+        return;
+      }
 
-const [selected,setSelected] = useState(null);
+      setUser(data.user);
 
+      try {
+        const admin = await checkAdmin(data.user.id);
+        if (active) setIsAdmin(admin);
+      } catch (error) {
+        console.error(error);
+        if (active) setIsAdmin(false);
+      }
 
+      if (active) setLoading(false);
+    }
 
-const filtered = data.filter((scp)=>{
+    loadSession();
 
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      () => {
+        if (active) {
+          setLoading(true);
+          loadSession();
+        }
+      }
+    );
 
-return (
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
 
-scp.id.toLowerCase()
-.includes(search.toLowerCase())
+  async function logout() {
+    await supabase.auth.signOut();
+    setUser(null);
+    setIsAdmin(false);
+  }
 
-&&
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
-(
-filter==="All"
-||
-scp.class===filter
-)
+  return (
+    <Routes>
+      <Route
+        path="/login"
+        element={
+          user
+            ? <Navigate to="/" replace />
+            : <Login />
+        }
+      />
 
-)
+      <Route
+        path="/"
+        element={
+          user ? (
+            <SCPDatabase
+              user={user}
+              isAdmin={isAdmin}
+              onLogout={logout}
+            />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
 
-
-});
-
-
-
-return (
-
-<div className="container">
-
-
-<h1>
-☣ SCP FOUNDATION DATABASE
-</h1>
-
-
-<p className="subtitle">
-Secure. Contain. Protect.
-</p>
-
-
-
-<input
-
-className="search"
-
-placeholder="Search SCP..."
-
-value={search}
-
-onChange={(e)=>setSearch(e.target.value)}
-
-/>
-
-
-
-<div className="filters">
-
-
-<button onClick={()=>setFilter("All")}>
-All
-</button>
-
-
-<button onClick={()=>setFilter("Safe")}>
-Safe
-</button>
-
-
-<button onClick={()=>setFilter("Euclid")}>
-Euclid
-</button>
-
-
-</div>
-
-
-
-{
-
-selected ?
-
-
-<div className="detail">
-
-
-<button
-onClick={()=>setSelected(null)}
->
-← Back
-</button>
-
-
-
-<h2>
-{selected.id}
-</h2>
-
-
-<h3>
-Object Class:
-{selected.class}
-</h3>
-
-
-
-{
-
-selected.image &&
-
-<img 
-src={selected.image}
-alt={selected.id}
-/>
-
+      <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
+    </Routes>
+  );
 }
-
-
-
-<h3>
-Special Containment Procedures
-</h3>
-
-<p>
-{selected.containment}
-</p>
-
-
-
-<h3>
-Description
-</h3>
-
-<p>
-{selected.description}
-</p>
-
-
-
-<h3>
-Reference
-</h3>
-
-<p>
-{selected.reference}
-</p>
-
-
-</div>
-
-
-
-:
-
-
-<div className="cards">
-
-
-{
-
-filtered.map((scp)=>(
-
-<SCPCard
-
-key={scp.id}
-
-scp={scp}
-
-click={()=>setSelected(scp)}
-
-/>
-
-))
-
-}
-
-
-</div>
-
-
-}
-
-
-
-</div>
-
-)
-
-}
-
 
 export default App;
