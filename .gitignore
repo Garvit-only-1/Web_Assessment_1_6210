@@ -28,3 +28,4 @@ dist-ssr
 *.sw?
 # VS Code workspace files
 *.code-workspace
+package-lock.json
